@@ -11,6 +11,9 @@ public class PlayerJudement {
 
     public PlayerJudement(int gameNumberLength) {
         this.gameNumberLength = gameNumberLength;
+    }
+
+    public void init(){
         this.playerNumberList = new ArrayList<>();
     }
 
@@ -28,6 +31,7 @@ public class PlayerJudement {
         if (playerStringList.size() != this.gameNumberLength){
             System.out.println("[ERROR]: " + this.gameNumberLength + "자리의 수를 입력해주세요.");
             playerNumberList = null;
+            return;
         }
 
         for (String str : playerStringList){
@@ -36,6 +40,9 @@ public class PlayerJudement {
     }
 
     private void inputValidater(){
+        if (playerNumberList == null){
+            return;
+        }
         for (int i = 0; i < playerNumberList.size(); i++){
             int inputNum = numberChecker(playerNumberList.get(i));
             playerNumberList.set(i, inputNum);

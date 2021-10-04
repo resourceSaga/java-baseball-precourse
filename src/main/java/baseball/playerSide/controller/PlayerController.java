@@ -11,13 +11,15 @@ public class PlayerController {
 
     public PlayerController(int gameNumberLength) {
         this.gameNumberLength = gameNumberLength;
-        System.out.println("야구 게임 시작");
-        playerAction();
     }
 
-    private void playerAction() {
+    public void playerAction() {
         PlayerJudement playerJudement = new PlayerJudement(gameNumberLength);
-        playerNumberList =  playerJudement.getPlayerNumberList();
+        playerNumberList = null;
+        while(playerNumberList == null){
+            playerJudement.init();
+            playerNumberList =  playerJudement.getPlayerNumberList();
+        }
     }
 
     public List getPlayerNumberList(){
