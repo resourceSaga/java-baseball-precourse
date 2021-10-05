@@ -8,7 +8,7 @@ public class Application {
     private static int GAME_NUMBER_LENGTH = 3;
 
     public static void main(String[] args) {
-        GameController gameController = new GameController(RANGE_START_NUMBER,RANGE_END_NUMBER, GAME_NUMBER_LENGTH);
+        GameController gameController = new GameController(RANGE_START_NUMBER, RANGE_END_NUMBER, GAME_NUMBER_LENGTH);
         gameController.start();
     }
 }
