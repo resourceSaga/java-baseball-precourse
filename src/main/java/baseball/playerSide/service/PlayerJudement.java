@@ -13,6 +13,16 @@ public class PlayerJudement {
     private int gameNumberLength;
     private List<Integer> playerNumberList;
 
+    /**
+     * 시스템 안내 문자열
+     * @return 메시지 문자열
+     */
+    public String getSystemMsg() {
+        return systemMsg;
+    }
+
+    private String systemMsg;
+
     public PlayerJudement(int gameNumberLength) {
         this.gameNumberLength = gameNumberLength;
     }
@@ -22,6 +32,7 @@ public class PlayerJudement {
      */
     public void init() {
         this.playerNumberList = new ArrayList<>();
+        this.systemMsg = null;
     }
 
     /**
@@ -31,8 +42,14 @@ public class PlayerJudement {
     public List getPlayerNumberList() {
         System.out.print("숫자를 입력해주세요 : ");
         String inputNum = Console.readLine();
-        listConverter(inputNum);
-        inputValidater();
+        systemMsg = listConverter(inputNum);
+        if (systemMsg == null) {
+        systemMsg = inputValidater();
+            System.out.println(systemMsg);
+        }
+        if (systemMsg != null){
+            System.out.println(systemMsg);
+        }
         return playerNumberList;
     }
 
@@ -40,26 +57,26 @@ public class PlayerJudement {
      * 입력받은 문자열을 리스트 변환
      * @param inputStr 플레이어 입력 문자열
      */
-    private void listConverter(String inputStr) {
+    private String listConverter(String inputStr) {
         List<String> playerStringList = Arrays.asList(inputStr.split(""));
 
         if (playerStringList.size() != this.gameNumberLength) {
-            System.out.println("[ERROR]: " + this.gameNumberLength + "자리의 수를 입력해주세요.");
             playerNumberList = null;
-            return;
+            return "[ERROR]: " + this.gameNumberLength + "자리의 수를 입력해주세요.";
         }
 
         for (String str : playerStringList) {
             playerNumberList.add(typeChecker(str));
         }
+        return null;
     }
 
     /**
      * 입력받은 문자열이 게임 조건에 맞는지 유효성 검사
      */
-    private void inputValidater() {
+    private String inputValidater() {
         if (playerNumberList == null) {
-            return;
+            return null;
         }
         for (int i = 0; i < playerNumberList.size(); i++) {
             int inputNum = numberChecker(playerNumberList.get(i));
@@ -68,9 +85,10 @@ public class PlayerJudement {
         }
 
         if (playerNumberList.contains(-1)) {
-            System.out.println("[ERROR]: 올바른 숫자를 입력해 주세요.");
             playerNumberList = null;
+            return "[ERROR]: 올바른 숫자를 입력해 주세요.";
         }
+        return null;
     }
 
     /**

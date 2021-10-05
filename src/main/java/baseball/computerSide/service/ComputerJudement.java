@@ -11,15 +11,17 @@ import java.util.List;
  * @since 1.0
  */
 public class ComputerJudement {
+    private static String reportMsg;
 
     public ComputerJudement() {
     }
 
     /**
      * 새로운 숫자 문자열을 생성한다.
+     *
      * @param startNum 시작 범위
-     * @param endNum 끝 범위
-     * @param numLen 문자열의 길이
+     * @param endNum   끝 범위
+     * @param numLen   문자열의 길이
      * @return 출제 문자열
      */
     public static List<Integer> createNumberList(int startNum, int endNum, int numLen) {
@@ -35,6 +37,7 @@ public class ComputerJudement {
 
     /**
      * 중복된 숫자가 아님을 검증한다.
+     *
      * @param createdNum 생성된 숫자
      * @param numberList 출제 문자열
      * @return 출제 문자열
@@ -48,8 +51,9 @@ public class ComputerJudement {
 
     /**
      * 플레이어 입력 문자열과 컴퓨터의 출제 문자열을 비교하여 정답 확인
+     *
      * @param computerNumbers 컴퓨터의 출제 문자열
-     * @param playerNumbers 플레이어의 입력 문자열
+     * @param playerNumbers   플레이어의 입력 문자열
      * @return 정답이라면 true, 아니라면 false
      */
     public static boolean judge(List<Integer> computerNumbers, List<Integer> playerNumbers) {
@@ -58,7 +62,8 @@ public class ComputerJudement {
             answer = strikeChecker(computerNumbers.get(i), playerNumbers, i, answer);
             answer = ballChecker(computerNumbers.get(i), playerNumbers, i, answer);
         }
-        System.out.println(reporting(answer));
+        reportMsg = reporting(answer);
+        System.out.println(reportMsg);
         if (answer[0] == 3) {
             return true;
         }
@@ -67,10 +72,11 @@ public class ComputerJudement {
 
     /**
      * 사용자 입력 문자열이 스트라이크인지 확인하여 객체에 결과 저장
-     * @param origin 검사할 숫자
+     *
+     * @param origin        검사할 숫자
      * @param playerNumbers 플레이어 입력 문자열
-     * @param currentIndex 비교할 현재 위치
-     * @param answer 결과 배열
+     * @param currentIndex  비교할 현재 위치
+     * @param answer        결과 배열
      * @return 첫 번째 요소로 스트라이크 적중 수량을 가진 배열
      */
     private static int[] strikeChecker(int origin, List<Integer> playerNumbers, int currentIndex, int[] answer) {
@@ -82,10 +88,11 @@ public class ComputerJudement {
 
     /**
      * 사용자 입력 문자열이 볼인지 확인하여 객체에 결과 저장
-     * @param origin 검사할 숫자
+     *
+     * @param origin        검사할 숫자
      * @param playerNumbers 플레이어 입력 문자열
-     * @param currentIndex 비교할 현재 위치
-     * @param answer 결과 배열
+     * @param currentIndex  비교할 현재 위치
+     * @param answer        결과 배열
      * @return 두 번째 요소로 볼 적중 수량을 가진 배열
      */
     private static int[] ballChecker(int origin, List<Integer> playerNumbers, int currentIndex, int[] answer) {
@@ -99,6 +106,7 @@ public class ComputerJudement {
 
     /**
      * 스트라이크/볼 데이터를 바탕으로 결과를 출력해주는 메소드
+     *
      * @param answer 사용자 적중 결과
      * @return 출력할 문자열
      */
@@ -108,11 +116,20 @@ public class ComputerJudement {
             result = answer[0] + "스트라이크 ";
         }
         if (answer[1] > 0) {
-            result += answer[1] + "볼 ";
+            result += answer[1] + "볼";
         }
         if (result.length() == 0) {
             result = "낫싱";
         }
         return result;
+    }
+
+    /**
+     * 리포팅 메시지 반환
+     *
+     * @return 판별 결과문
+     */
+    public static String getReportMsg() {
+        return reportMsg;
     }
 }
