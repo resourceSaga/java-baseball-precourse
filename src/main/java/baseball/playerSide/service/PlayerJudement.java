@@ -45,7 +45,7 @@ public class PlayerJudement {
         systemMsg = listConverter(inputNum);
         if (systemMsg == null) {
         systemMsg = inputValidater();
-            System.out.println(systemMsg);
+//            System.out.println(systemMsg);
         }
         if (systemMsg != null){
             System.out.println(systemMsg);
